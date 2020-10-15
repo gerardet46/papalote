@@ -1,4 +1,6 @@
 __pycache__/
+*.pyc
+
 *.db
 *.log
 secrets.py
