@@ -11,7 +11,7 @@ from discord.ext import commands
 
 """iniciamos el bot"""
 # NOTE: Canviar es prefix quan acabi
-prefix = "%"
+prefix = ">"
 bot = commands.Bot(command_prefix=prefix)
 
 
