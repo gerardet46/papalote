@@ -37,9 +37,11 @@ def add(ids: list, dificultad):
     tabla, insertar = [x[0] for x in get()], []
     sql = "INSERT INTO pdd VALUES (?,?,?)"
     for x in ids:
-        if x not in tabla:
-            # agregamos
-            insertar.append((x, dificultad, ''))
+        if x in tabla:
+            rm([x])  # eliminamos para volverlo a agregar
+
+        # agregamos
+        insertar.append((x, dificultad, ''))
 
     cursor.executemany(sql, insertar)
     conn.commit()

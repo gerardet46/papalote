@@ -132,7 +132,7 @@ async def tarea(bot):
             f.close()
 
             canal = bot.get_channel(753290108995895296)
-            message = await canal.send(v.resultado)
+            message = await canal.send(v.pdd_problema)
             await message.add_reaction("\U0001F37E")
             await canal.send("<@&765165103401271346>")  # avisamos
             v.pdd_problema = None
