@@ -12,7 +12,7 @@ from discord.ext import commands
 
 
 """iniciamos el bot"""
-prefix = "%"
+prefix = ">"
 bot = commands.Bot(command_prefix=prefix)
 
 

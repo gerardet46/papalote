@@ -94,7 +94,7 @@ class Cog(commands.Cog):
             await ctx.send("No tienes permisos")
             return
 
-        tarea(self.bot)
+        PDD()
         """
         p = pd.tarea_diaria()
         if p == "ERROR":
@@ -134,7 +134,7 @@ async def tarea(bot):
             canal = bot.get_channel(753290108995895296)
             message = await canal.send(v.pdd_problema)
             await message.add_reaction("\U0001F37E")
-            await canal.send("<@&765165103401271346>")  # avisamos
+            #await canal.send("<@&765165103401271346>")  # avisamos
             v.pdd_problema = None
 
         await asyncio.sleep(20)
@@ -152,7 +152,7 @@ def PDD():
         'm': 'intermedio',
         'd': 'difícil'
     }
-    msg = "**PROBLEMA DEL DÍA (" + str(dt.datetime.now().date()) + ')**\n'
+    msg = "**PROBLEMA DEL DÍA (" + str(dt.datetime.now().date()) + ')**<@&765165103401271346>\n'
     msg += "*(Archivado)*\n" if p[1] else ""
     msg += "**Dificultad:** " + dif[p[0][1]] + '\n\n'
 
