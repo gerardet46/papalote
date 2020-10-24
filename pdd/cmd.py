@@ -95,26 +95,8 @@ class Cog(commands.Cog):
             return
 
         PDD()
-        """
-        p = pd.tarea_diaria()
-        if p == "ERROR":
-            await ctx.send("No quedan problemas en PDD")
-            return
-       
-        problema = b.get(p[0][0], True)[0]
-        dif = {
-            'f': 'fácil',
-            'm': 'intermedio',
-            'd': 'difícil'
-        }
-        msg = "**PROBLEMA DEL DÍA (" + str(dt.datetime.now().date()) + ')**\n'
-        msg += "*(Archivado)*\n" if p[1] else ""
-        msg += "**Dificultad:** " + dif[p[0][1]] + '\n\n'
 
-        msg += util.show_problem(problema, False, True)
-        await ctx.send(msg)
-        """
-
+        
 """Tarea del dia"""
 async def tarea(bot):
     await bot.wait_until_ready()
@@ -152,9 +134,23 @@ def PDD():
         'm': 'intermedio',
         'd': 'difícil'
     }
+    """
     msg = "**PROBLEMA DEL DÍA (" + str(dt.datetime.now().date()) + ')**<@&765165103401271346>\n'
     msg += "*(Archivado)*\n" if p[1] else ""
     msg += "**Dificultad:** " + dif[p[0][1]] + '\n\n'
+    """
+    v.pdd_problema = show_problem(problema, dif[p[0][1]], p[1])
 
-    msg += util.show_problem(problema, False, True)
-    v.pdd_problema = msg
+
+"""lo mismo que util.py pero para el pdd"""
+def show_problem(arr, dif, archivado):
+    t = "**PROBLEMA DEL DÍA (" + str(dt.datetime.now().date()) + ')**\n'
+    t += "*(Archivado)*\n\n" if archivado else "\n\n"
+
+    t += "<@&765165103401271346>"
+    t += "\n**Nombre**: " + arr[0]
+    t += "\n**Fuente**: " + arr[2]
+    t += "\n**Dificultad**: " + dif
+    t += "\n**Propuesto por**: " + arr[1]
+    t += "\n**Link**: " + arr[3]
+    return t

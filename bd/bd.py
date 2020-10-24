@@ -91,6 +91,11 @@ def rm(nombre):
 
 
 """*** MÉTODOS UTILES PARA LA BD ***"""
-def aleatorio(campo="", estricto=False):
+def aleatorio(campo="", estricto=False, check_pdd=True):
     r = get(campo, estricto)
+    # filtramos los que no esten en pdd
+    if check_pdd:
+        _pdd = [fila[0] for fila in cursor.execute("SELECT id FROM pdd WHERE fecha = ''")]
+        r = [fila for fila in r if fila[0] not in _pdd]
+
     return random.choice(r) if r else []

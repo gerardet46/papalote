@@ -21,3 +21,11 @@ def check_rol(ctx, rol=["admin", "moderador"]):
     roles = [x.name.lower() for x in ctx.author.roles]  # obtenemos la lista de roles
     permisos = [x for x in rol if x in roles]  # cantidad de permisos que coinciden
     return len(permisos) > 0
+
+
+"""inserta un blockquote"""
+def block(texto, inline=True):
+    if inline:
+        return "\n```\n" + str(texto) + "\n```"
+    else:
+        return "```\n" + str(texto) + "\n```"

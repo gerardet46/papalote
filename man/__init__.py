@@ -125,6 +125,27 @@ MANUAL = {
             }],
             "recover": ["(pdd-recover) (SOLO EN CASO DE ERRORES)\nSi falla el problema del día, haciendo esto se hará manualmente.", {"Uso": ">pdd-recover"}]
     },
+    "react": {
+        "add": ["(react-add) Configura una reacción", {
+            "Sintaxis": ">react-add [msg_id] emoji1 reaccion1 emoji2 reaccion2 ...",
+            "Argumentos (opcionales)": "--add-only: no permite quitarse el rol",
+            "Nota": "Hay que poner el emoji tal cual"
+        }],
+        "append": ["(react-append) Añade emojis y roles", {
+            "Sintaxis": ">react-append [msg_id] emoji1 reaccion1 emoji2 reaccion2 ...",
+            "Diferencia con react-add": "react-add configura reacciones en un msg de cero, mientras que append agrega reacciones a un msg con reacciones existentes (ya se hizo react-add y se quieren agregar)"
+        }],
+        "rm": ["(>react-rm) Borra un mensaje con reacciones", {
+            "Sintaxis": ">react-rm [msg_id1] [msg_id2] ..."
+        }],
+        "list": ["(react-list) Muestra reacciones", {
+            "Sintaxis": ">react-list [msg_id OPT] [ARGS]",
+            "Argumentos (opcional)": "--no-info: solo muestra el id del msg, sin las reacciones",
+            "Funcionamiento": "muestra todos los mensages con sus reacciones, salvo si se especifica un msg_id"
+        }]
+    }
+}
+"""
     "l-add": [
         "Agrega problemas a listas (o baterías de problemas)",
         {
@@ -150,3 +171,4 @@ MANUAL = {
         }
     ],
 }
+    """
