@@ -40,9 +40,7 @@ async def on_raw_reaction_add(payload):
 
 @bot.event
 async def on_raw_reaction_remove(payload):
-    guild = await bot.fetch_guild(payload.guild_id)
-    user = discord.utils.get(guild.members, id=payload.user_id)  # no va, guild.members = []
-    print("#", guild, guild.members, user)
+    user = discord.utils.get(bot.get_all_members(), id=payload.user_id)
     await react.on_anti_react(user, payload, bot)
 
 
