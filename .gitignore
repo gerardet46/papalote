@@ -3,4 +3,5 @@ __pycache__/
 *.db
 *.log
 *.txt
+*.json
 secrets.py

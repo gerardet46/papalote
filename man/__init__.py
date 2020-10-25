@@ -96,13 +96,11 @@ MANUAL = {
     ],
     "get": [
         "Muestra un problema (concreto o random)",
-        {"Argumentos": "OPCIONALES\nNombre del problema o campo\n--no-info: solo muestra la imagen del problema, sin la info\n" \
-         "-s, --strict: Devuelve el problema dado estrictamente (>get TDN1 puede devolver TDN1, TDN12, TDN134, ..., pero con -s, --strict no)\nno-tex: muestra todo menos el LaTex",
+        {"Argumentos": "OPCIONALES\nNombre del problema o campo\n--no-info: solo muestra la imagen del problema, sin la info\n", \
          "Ejemplos": "\n".join([
              ">get (uno random)",
-             ">get algebra (uno random de algebra)",
-             ">get albegra0 (muestra el problema algebra0)",
-             ">get algebra --no-info -s (random de algebra sin info y estricto)",
+             ">get ALG (uno random de algebra)",
+             ">get ALG2 (muestra el problema ALG2)",
              ">get --no-tex (random sin mostrar el latex)"
          ]),
          "Extra": "El bot reacciona con un emoji cada problema, si el usuario que usó el comando también lo reacciona, el bot le mandará un dm con las pistas del problema (si es que hay). Si vuelve a reaccionar al mensaje privado, el bot lo editará por la solución del problema (en caso de que esté registrada).",}
@@ -123,6 +121,8 @@ MANUAL = {
                 "Argumentos": "--old: muestra los problemas que ya salieron",
                 "Ejemplos": ">pdd-list\n>pdd-list --old"
             }],
+        "get": ["(pdd-get) Devuelve un problema de PDD", {"Uso": "El mismo que >get, pero no incluye ninguna opción (--strict, --no-info, ...)"
+        }],
             "recover": ["(pdd-recover) (SOLO EN CASO DE ERRORES)\nSi falla el problema del día, haciendo esto se hará manualmente.", {"Uso": ">pdd-recover"}]
     },
     "react": {

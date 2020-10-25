@@ -6,6 +6,7 @@ import variables as v
 import util
 import argparse
 import sys
+import random
 import schedule
 import asyncio
 import datetime as dt
@@ -36,6 +37,26 @@ class Cog(commands.Cog):
         args = list(args[1:])
         pd.add(args, dif)
         await ctx.send("Hecho!")
+
+
+    @commands.command(name="pdd-get")
+    async def pdd_get(self, ctx, *args):
+        if not util.check_rol(ctx, ['admin', 'moderador', 'pdd selección']):
+            await ctx.send("No tienes permisos para esta función")
+            return
+
+        nombre = ""
+        if args: nombre = args[0]
+        
+        prob = pd.get(nombre)
+        p = random.choice(prob)[0] if prob else []
+        p_bd = b.get(p, True)
+        
+        if p_bd:
+            await ctx.send(util.show_problem(p_bd[0]))
+        else:
+            await ctx.send("Este no existe en la BD")
+
 
 
     @commands.command(name="pdd-rm")
@@ -145,7 +166,7 @@ def PDD():
 """lo mismo que util.py pero para el pdd"""
 def show_problem(arr, dif, archivado):
     t = "**PROBLEMA DEL DÍA (" + str(dt.datetime.now().date()) + ')**\n'
-    t += "*(Archivado)*\n\n" if archivado else "\n\n"
+    t += "*(Archivado)*\n" if archivado else "\n"
 
     t += "<@&765165103401271346>"
     t += "\n**Nombre**: " + arr[0]

@@ -57,7 +57,7 @@ class Cog(commands.Cog):
         parse = argparse.ArgumentParser()
         parse.add_argument("--no-tex", dest="tex", action="store_false")
         parse.add_argument("--no-info", dest="info", action="store_false")
-        parse.add_argument("-s", "--strict", action="store_true")
+        #parse.add_argument("-s", "--strict", action="store_true")
 
         message, p = None, ""
         if len(args) == 0:
@@ -75,7 +75,9 @@ class Cog(commands.Cog):
 
         try:
             r = parse.parse_args(args)
-            p = b.aleatorio(nombre, r.strict) if nombre else b.aleatorio()
+            #p = b.aleatorio(nombre, r.strict) if nombre else b.aleatorio()
+            strict = any(c.isdigit() for c in nombre)
+            p = b.aleatorio(nombre, strict) if nombre else b.aleatorio()
             # si no se encuentran problemas
             if not p:
                 await ctx.send("Sin resultados")

@@ -15,7 +15,6 @@ from discord.ext import commands
 prefix = ">"
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix=prefix, intents=intents)
-#bot = commands.Bot(command_prefix=prefix)
 
 
 """iniciamos el bot"""
@@ -41,8 +40,7 @@ async def on_raw_reaction_add(payload):
 @bot.event
 async def on_raw_reaction_remove(payload):
     guild = await bot.fetch_guild(payload.guild_id)
-    user = discord.utils.get(guild.members, id=payload.user_id)  # no va, guild.members = []
-    print("#", guild, guild.members, user)
+    user = await guild.fetch_member(payload.user_id)
     await react.on_anti_react(user, payload, bot)
 
 
