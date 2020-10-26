@@ -115,7 +115,7 @@ class Cog(commands.Cog):
             await ctx.send("No tienes permisos")
             return
 
-        PDD()
+        PDD()  # se asignará v.pdd_problema, y como la tarea() está en bucle, lo pondrá en el canal
 
         
 """Tarea del dia"""
@@ -143,6 +143,7 @@ async def tarea(bot):
         await asyncio.sleep(20)
 
 
+"""método para la tarea diaria"""
 def PDD():
     p = pd.tarea_diaria()
     if p == "ERROR":
@@ -155,11 +156,6 @@ def PDD():
         'm': 'intermedio',
         'd': 'difícil'
     }
-    """
-    msg = "**PROBLEMA DEL DÍA (" + str(dt.datetime.now().date()) + ')**<@&765165103401271346>\n'
-    msg += "*(Archivado)*\n" if p[1] else ""
-    msg += "**Dificultad:** " + dif[p[0][1]] + '\n\n'
-    """
     v.pdd_problema = show_problem(problema, dif[p[0][1]], p[1])
 
 
