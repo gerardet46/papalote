@@ -32,7 +32,12 @@ async def on_react(user, payload, bot):
     if msg_id in dicc:
         reacciones = dicc[msg_id]
         if emoji in reacciones:
-            rol = discord.utils.get(guild.roles, name=reacciones[emoji])
+            em, rol = reacciones[emoji], None
+            if em.isdigit():
+                rol = discord.utils.get(guild.roles, id=int(em))
+            else:
+                rol = discord.utils.get(guild.roles, name=em)
+
             await payload.member.add_roles(rol)
             await payload.member.send("Se te ha concedido el rol **" + reacciones[emoji] + "**")
 
@@ -79,7 +84,8 @@ class Cog(commands.Cog):
             roles = {}
             for i in range(1, l, 2):
                 if i + 1 < len(args):
-                    roles[args[i]] = args[i + 1]
+                    if args[i + 1]:
+                        roles[args[i]] = args[i + 1]
                 else:
                     await ctx.send("Hay un emoji que queda sin rol. (>man react add)")
                     return
@@ -106,7 +112,8 @@ class Cog(commands.Cog):
             roles = {}
             for i in range(1, l, 2):
                 if i + 1 < len(args):
-                    roles[args[i]] = args[i + 1]
+                    if args[i + 1]:
+                        roles[args[i]] = args[i + 1]
                 else:
                     await ctx.send("Hay un emoji que queda sin rol. (>man react append)")
                     return
@@ -133,7 +140,7 @@ class Cog(commands.Cog):
         if args:
             _id = args[0]
             if _id in dicc:
-                await ctx.send(f"Reacciones para {_id}\n" + "\n".join([f"{k}:\t{dicc[_id][k]}" for k in dicc[_id]]))
+                await ctx.send(f"Reacciones para {_id}\n" + "\n".join([f"{k}\t{dicc[_id][k]}" for k in dicc[_id]]))
             else:
                 await ctx.send(f"No hay reacciones para el mensage *{_id}*")
 
@@ -141,7 +148,7 @@ class Cog(commands.Cog):
             msg = []
             for k in dicc:
                 if info:
-                    msg.append(f"Reacciones para *{k}*\n" + "\n".join([f"{_k}:\t{dicc[k][_k]}" for _k in dicc[k]]))
+                    msg.append(f"Reacciones para *{k}*\n" + "\n".join([f"{_k}\t{dicc[k][_k]}" for _k in dicc[k]]))
                 else:
                     msg.append(k)
 
