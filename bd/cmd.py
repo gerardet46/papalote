@@ -4,6 +4,7 @@ import bd.bd as b
 import util
 import argparse
 import sys
+import re
 from discord.ext import commands
 
 
@@ -16,7 +17,7 @@ class Cog(commands.Cog):
     @commands.command()
     async def add(self, ctx, *args):
         # comprobamos permisos
-        if not util.check_rol(ctx):
+        if not util.check_rol(ctx, ['admin', 'moderador', 'pdd selección']):
             await ctx.send("No tienes permisos para esta función")
             return
 
@@ -91,10 +92,22 @@ class Cog(commands.Cog):
     @commands.command()
     async def show(self, ctx, *args):
         MAX = 15
-        p = b.get() if not args else b.get(args[0])
-        cuenta = len(p)
-        p = [x[0] for x in p[:MAX]]  # limitamos a MAX, y cogemos solo el nombre
-        await ctx.send(f"{cuenta} problemas:\n```\n" + "\n".join(p) + "\n```")
+        if args:
+            p = b.get(args[0])
+            cuenta = len(p)
+            p = [x[0] for x in p[:MAX]]  # limitamos a MAX, y cogemos solo el nombre
+            await ctx.send(f"{cuenta} problemas:\n```\n" + "\n".join(p) + "\n```")
+        else:
+            # mostramos todos los campos y cuantos hay de cada uno
+            p = b.get()
+            total = len(p)
+            cadauno = {}
+            for x in p:
+                campo = re.sub("\d", "", x[0])
+                if campo in cadauno: cadauno[campo] += 1
+                else: cadauno[campo] = 1
+
+            await ctx.send(f"Mostrando cuántos problemas (Total: **{total}**) hay de cada campo (ver `>show [campo]`)\n```\n" + "\n".join([f"{k}\t{cadauno[k]}" for k in cadauno]) + "\n```")
 
 
     @commands.command(name="del")
